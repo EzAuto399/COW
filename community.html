@@ -1,0 +1,117 @@
+<!-- community.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>$COW - Community</title>
+    <meta name="description"
+        content="Join the $COW community! Connect with fellow enthusiasts, share fan art, participate in discussions, and stay updated with the latest happenings.">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">$COW</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About $COW</a></li>
+                <li><a href="community.html" class="active">Community</a></li>
+            </ul>
+            <!-- Menu Icon for Mobile -->
+            <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle navigation menu" role="button"
+                tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="community-page">
+            <div class="container">
+                <h1>Join the Herd</h1>
+                <p>Connect with fellow $COW enthusiasts and be part of the movement!</p>
+                <div class="social-links">
+                    <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer">
+                        <img src="images/x-icon.png" alt="Twitter" class="social-icon">
+                        <span class="social-text">Twitter</span>
+                    </a>
+                    <a href="https://discord.gg/yourserver" target="_blank" rel="noopener noreferrer">
+                        <img src="images/discord-icon.png" alt="Discord" class="social-icon">
+                        <span class="social-text">Discord</span>
+                    </a>
+                    <a href="https://t.me/yourgroup" target="_blank" rel="noopener noreferrer">
+                        <img src="images/telegram-icon.png" alt="Telegram" class="social-icon">
+                        <span class="social-text">Telegram</span>
+                    </a>
+                </div>
+                <div class="community-content">
+                    <h2>Fan Art and Memes</h2>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="images/fanart1.png" alt="Fan Art 1">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/fanart2.png" alt="Fan Art 2">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/fanart3.png" alt="Fan Art 3">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/fanart4.png" alt="Fan Art 4">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/fanart5.png" alt="Fan Art 5">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 $COW. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Swiper.js Library -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        const swiper = new Swiper('.swiper-container', {
+            loop: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: { slidesPerView: 1 },
+                1024: { slidesPerView: 2 },
+            },
+        });
+    </script>
+
+    <!-- Include JavaScript before closing body tag -->
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>
