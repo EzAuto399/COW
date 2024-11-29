@@ -3,16 +3,13 @@
  * Initializes the Chart.js doughnut chart on the Tokenomics page.
  */
 function initializeTokenomicsChart() {
-    console.log('Initializing Tokenomics Chart...');
     const canvas = document.getElementById('tokenomicsChart');
     if (!canvas) {
-        console.log('Canvas element not found.');
         return;
     }
 
     const ctx = canvas.getContext('2d');
     if (!ctx) {
-        console.log('Failed to get canvas context.');
         return;
     }
 
@@ -54,7 +51,6 @@ function initializeTokenomicsChart() {
                 },
             },
         });
-        console.log('Tokenomics Chart initialized successfully.');
     } catch (error) {
         console.error('Error initializing Tokenomics Chart:', error);
     }
@@ -243,6 +239,5 @@ function spawnCowsRandomly() {
 
 // Initialize cow spawning on page load
 window.addEventListener('load', () => {
-    console.log('Starting random cow spawning...');
     spawnCowsRandomly();
 });
