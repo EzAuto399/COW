@@ -1,5 +1,3 @@
-// scripts/main.js
-
 /**
  * 1. Tokenomics Chart Initialization
  * Initializes the Chart.js doughnut chart on the Tokenomics page.
@@ -23,23 +21,25 @@ function initializeTokenomicsChart() {
             type: 'doughnut',
             data: {
                 labels: ['Community Rewards', 'Development', 'Marketing', 'Liquidity Pool', 'Team'],
-                datasets: [{
-                    data: [40, 20, 15, 15, 10],
-                    backgroundColor: [
-                        '#FF6384',
-                        '#36A2EB',
-                        '#FFCE56',
-                        '#4BC0C0',
-                        '#9966FF'
-                    ],
-                    hoverBackgroundColor: [
-                        '#FF6384CC',
-                        '#36A2EBCC',
-                        '#FFCE56CC',
-                        '#4BC0C0CC',
-                        '#9966FFCC'
-                    ]
-                }]
+                datasets: [
+                    {
+                        data: [40, 20, 15, 15, 10],
+                        backgroundColor: [
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56',
+                            '#4BC0C0',
+                            '#9966FF',
+                        ],
+                        hoverBackgroundColor: [
+                            '#FF6384CC',
+                            '#36A2EBCC',
+                            '#FFCE56CC',
+                            '#4BC0C0CC',
+                            '#9966FFCC',
+                        ],
+                    },
+                ],
             },
             options: {
                 responsive: false,
@@ -48,11 +48,11 @@ function initializeTokenomicsChart() {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            color: '#fff'
-                        }
-                    }
-                }
-            }
+                            color: '#fff',
+                        },
+                    },
+                },
+            },
         });
         console.log('Tokenomics Chart initialized successfully.');
     } catch (error) {
@@ -74,14 +74,11 @@ function animateTimeline() {
 
     const isInViewport = (el) => {
         const rect = el.getBoundingClientRect();
-        return (
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.bottom >= 0
-        );
+        return rect.top <= (window.innerHeight || document.documentElement.clientHeight) && rect.bottom >= 0;
     };
 
     const run = () => {
-        items.forEach(item => {
+        items.forEach((item) => {
             if (isInViewport(item)) {
                 item.classList.add('show');
             }
@@ -108,14 +105,14 @@ if (document.querySelector('.timeline')) {
 /**
  * 3. Smooth Scrolling for Internal Links
  */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
 
         const targetElement = document.querySelector(this.getAttribute('href'));
         if (targetElement) {
             targetElement.scrollIntoView({
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
         }
     });
@@ -139,7 +136,7 @@ if (menuIcon) {
     });
 }
 
-document.querySelectorAll('.nav-links a').forEach(link => {
+document.querySelectorAll('.nav-links a').forEach((link) => {
     link.addEventListener('click', function () {
         const navLinks = document.querySelector('.nav-links');
         if (navLinks.classList.contains('active')) {
@@ -150,63 +147,102 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
 /**
  * 5. Haunted Floating Cows
- * Dynamically creates 1–10 cows that float around the page.
+ * Dynamically creates cows at random intervals, with random positions, avoiding overlap.
  */
-function createFloatingCows() {
-    const numberOfCows = Math.floor(Math.random() * 10) + 1; // Randomly generate 1–10 cows
-    const body = document.body;
+function spawnCowsRandomly() {
+    const existingPositions = []; // Track positions to avoid collisions
+    const maxCows = 20; // Maximum number of cows at a time
+    const minCows = 5; // Minimum number of cows to maintain
+    const cowSize = 100; // Approximate size for collision detection
 
-    console.log(`Creating ${numberOfCows} floating cows...`);
+    /**
+     * Helper: Generate random positions ensuring no overlap
+     */
+    function getRandomPosition(size) {
+        const maxWidth = window.innerWidth - size;
+        const maxHeight = window.innerHeight - size;
 
-    for (let i = 0; i < numberOfCows; i++) {
+        let x, y, collision;
+
+        do {
+            collision = false;
+            x = Math.random() * maxWidth;
+            y = Math.random() * maxHeight;
+
+            // Check for collision
+            for (const pos of existingPositions) {
+                const distance = Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2));
+                if (distance < size) {
+                    collision = true;
+                    break;
+                }
+            }
+        } while (collision);
+
+        existingPositions.push({ x, y });
+        return { x, y };
+    }
+
+    /**
+     * Creates a single cow at a random position and manages its animations.
+     */
+    function createCow() {
+        if (document.querySelectorAll('.haunted-cow').length >= maxCows) return;
+
         const cow = document.createElement('img');
-        cow.src = 'images/cow.png'; // Ensure this path is correct
+        cow.src = 'images/cow.png'; // Ensure path is correct
         cow.alt = 'Haunted Cow';
         cow.className = 'haunted-cow';
 
-        // Random initial position and size
-        const width = `${Math.random() * 150 + 50}px`; // Size between 50px and 200px
-        const top = `${Math.random() * window.innerHeight}px`;
-        const left = `${Math.random() * window.innerWidth}px`;
+        // Generate random position and size
+        const { x, y } = getRandomPosition(cowSize);
+        cow.style.width = `${Math.random() * 150 + 50}px`; // Random size between 50px and 200px
+        cow.style.position = 'absolute';
+        cow.style.top = `${y}px`;
+        cow.style.left = `${x}px`;
+        cow.style.opacity = '0'; // Initially hidden
+        cow.style.transition = 'opacity 3s ease-in-out, top 2s ease, left 2s ease';
 
-        cow.style.width = width;
-        cow.style.top = top;
-        cow.style.left = left;
-        cow.style.opacity = '1'; // Ensure visibility
+        document.body.appendChild(cow);
 
-        body.appendChild(cow);
+        // Fade-in effect
+        setTimeout(() => {
+            cow.style.opacity = '1';
 
-        console.log(`Added cow ${i + 1}:`, {
-            width,
-            top,
-            left,
-            opacity: cow.style.opacity
-        });
+            // Fade-out and remove cow after a delay
+            setTimeout(() => {
+                cow.style.opacity = '0';
 
-        animateCow(cow); // Start the animation
+                setTimeout(() => {
+                    document.body.removeChild(cow);
+                    const index = existingPositions.findIndex((pos) => pos.x === x && pos.y === y);
+                    if (index !== -1) existingPositions.splice(index, 1); // Remove from tracker
+                }, 3000); // Matches fade-out duration
+            }, Math.random() * 5000 + 2000); // Visible for 2–7 seconds
+        }, 100); // Fade-in delay
     }
+
+    /**
+     * Ensure minimum number of cows are always visible.
+     */
+    function ensureMinimumCows() {
+        const currentCows = document.querySelectorAll('.haunted-cow').length;
+        if (currentCows < minCows) {
+            for (let i = currentCows; i < minCows; i++) {
+                createCow();
+            }
+        }
+    }
+
+    // Spawn cows at random intervals
+    setInterval(() => {
+        createCow();
+        ensureMinimumCows(); // Check and maintain the minimum number of cows
+    }, Math.random() * 2000 + 1000); // Random interval between 1–3 seconds
 }
 
-function animateCow(cow) {
-    const moveCow = () => {
-        const newX = Math.random() * window.innerWidth;
-        const newY = Math.random() * window.innerHeight;
-        const newOpacity = Math.random() > 0.5 ? '1' : '0';
-
-        cow.style.top = `${newY}px`;
-        cow.style.left = `${newX}px`;
-        cow.style.opacity = newOpacity;
-
-        console.log(`Animating cow: new position (${newX.toFixed(2)}, ${newY.toFixed(2)}), opacity: ${newOpacity}`);
-
-        setTimeout(moveCow, Math.random() * 3000 + 1000);
-    };
-
-    setTimeout(moveCow, Math.random() * 1000);
-}
-
-// Initialize haunted cows on page load
+// Initialize cow spawning on page load
 window.addEventListener('load', () => {
-    console.log('Initializing haunted cows...');
-    createFloatingCows();
+    console.log('Starting random cow spawning...');
+    spawnCowsRandomly();
 });

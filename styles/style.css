@@ -935,23 +935,34 @@ p {
     z-index: 100;
     pointer-events: none;
     /* Prevent interaction */
-    opacity: 0;
-    /* Hidden by default */
-    transition: opacity 1s ease-in-out;
-    /* Smooth fade-in/out */
-    animation: float 3s ease-in-out infinite;
-    /* Add the float animation */
+    opacity: 1;
+    /* Fully visible by default */
+    transition: opacity 5s ease-in-out;
+    /* Smooth fade over 5 seconds */
+    animation: fade-and-grow 5s ease-in-out infinite;
+    /* Gradual fading and resizing */
 }
 
-/* Optional: Keyframe for subtle floating animation */
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translate(-50%, -50%) translateY(-10px);
+/* Keyframes for fading and resizing */
+@keyframes fade-and-grow {
+    0% {
+        opacity: 1;
+        /* Fully visible */
+        transform: scale(1);
+        /* Original size */
     }
 
     50% {
-        transform: translate(-50%, -50%) translateY(10px);
+        opacity: 0.5;
+        /* Semi-transparent */
+        transform: scale(1.2);
+        /* Slightly larger */
+    }
+
+    100% {
+        opacity: 0;
+        /* Fully invisible */
+        transform: scale(0.8);
+        /* Slightly smaller */
     }
 }
