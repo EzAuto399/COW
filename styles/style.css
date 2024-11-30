@@ -24,6 +24,13 @@ main {
     flex: 1;
 }
 
+section {
+    margin: 0;
+    /* Remove default margins */
+    padding: 0;
+    /* Remove default padding */
+}
+
 /* Container */
 .container {
     width: 80%;
@@ -108,12 +115,34 @@ nav .nav-links a {
     background-size: cover;
     background-position: center;
     height: 100vh;
+    /* Full screen height */
     color: #fff;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* Vertically centers content */
     align-items: center;
+}
+.hero .cursed-text {
+    font-family: 'Creepster', cursive;
+    font-size: 4em;
+    /* Large font size for emphasis */
+    color: #ff0000;
+    /* Bright red for cursed theme */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7), 0 0 15px #ff0000;
+    /* Spooky glowing effect */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black background for contrast */
+    padding: 20px 40px;
+    /* Adds spacing inside the text block */
+    display: inline-block;
+    border-radius: 10px;
+    /* Rounded corners for smoother design */
+    margin-top: -250px;
+    /* Raise the text higher (was previously -50px) */
+    animation: flicker 1.5s infinite;
+    /* Flickering effect for spooky vibe */
 }
 .hero h1 {
     font-size: 3em;
@@ -130,7 +159,72 @@ nav .nav-links a {
     animation: flicker 2s infinite;
     /* Flickering animation */
 }
+#social-links {
+    background-color: #000;
+    /* Black background */
+    text-align: center;
+    padding: 20px 0;
+    /* Reduced vertical padding */
+    margin: 0;
+    /* Remove margins */
+    color: #f5f5f5;
+    height: 30vh;
+    /* Occupy 30% of the viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#social-links .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    /* Add more space between each social icon */
+    margin: 20px 0;
+    /* Add some vertical spacing */
+}
 
+#social-links .social-icons a {
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    /* Smooth scaling and background color */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Subtle grey overlay for each icon */
+    padding: 10px;
+    border-radius: 10px;
+    /* Rounded corners for icons */
+}
+
+#social-links .social-icons a:hover {
+    transform: scale(1.3);
+    /* Slightly enlarge on hover */
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Change background color on hover */
+}
+
+#social-links .social-icon {
+    width: 60px;
+    /* Adjust icon size */
+    height: 60px;
+    object-fit: contain;
+}
+#social-links .social-icons a {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    /* Smooth scaling effect */
+}
+
+#social-links .social-icons a:hover {
+    transform: scale(1.2);
+    /* Enlarge on hover */
+}
+
+#social-links .social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* Ensures images fit properly */
+}
 .spooky-text {
     font-size: 1.2em;
     color: #ffcccb;
@@ -274,12 +368,19 @@ nav .nav-links a {
 }/* Connect, Innovate, Succeed Section */
 #connect-innovate-succeed {
     background-color: #000;
-    color: #fff;
-    min-height: 100vh;
+    /* Black background */
+    margin: 0;
+    /* Remove margins */
+    padding: 30px 0;
+    /* Reduced vertical padding */
+    height: 50vh;
+    /* Occupy 50% of the viewport height */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    color: #fff;
+    text-align: center;
 }
 
 #connect-innovate-succeed .content-wrapper {
@@ -829,6 +930,14 @@ footer {
     background-color: #0d0d0d;
     padding: 20px 0;
     text-align: center;
+    margin: 0;
+    /* Remove footer margin */
+}
+
+footer p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
 }
 
 footer .pagination-dots {
@@ -895,18 +1004,19 @@ footer p {
 
     #connect-innovate-succeed .content-wrapper {
         flex-direction: column;
+        /* Stack content vertically */
         text-align: center;
     }
 
     #connect-innovate-succeed img.ghost-image {
         width: 200px;
+        /* Reduce image size for smaller screens */
     }
 
     #connect-innovate-succeed .text-content h2 {
         font-size: 2em;
-    }
-
-    #connect-innovate-succeed .text-content p {
+        /* Adjust font size */
+    }    #connect-innovate-succeed .text-content p {
         font-size: 1em;
     }
 

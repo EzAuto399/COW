@@ -197,7 +197,7 @@ function spawnCowsRandomly() {
         cow.style.top = `${y}px`;
         cow.style.left = `${x}px`;
         cow.style.opacity = '0'; // Initially hidden
-        cow.style.transition = 'opacity 3s ease-in-out, top 2s ease, left 2s ease';
+        cow.style.transition = 'opacity 6s ease-in-out, top 4s ease, left 4s ease'; // Slower fade-in/out
 
         document.body.appendChild(cow);
 
@@ -213,10 +213,11 @@ function spawnCowsRandomly() {
                     document.body.removeChild(cow);
                     const index = existingPositions.findIndex((pos) => pos.x === x && pos.y === y);
                     if (index !== -1) existingPositions.splice(index, 1); // Remove from tracker
-                }, 3000); // Matches fade-out duration
-            }, Math.random() * 5000 + 2000); // Visible for 2–7 seconds
+                }, 6000); // Matches fade-out duration
+            }, Math.random() * 7000 + 3000); // Visible for 3–10 seconds
         }, 100); // Fade-in delay
     }
+
 
     /**
      * Ensure minimum number of cows are always visible.
