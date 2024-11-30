@@ -111,7 +111,7 @@ nav .nav-links a {
 
 /* Hero Section */
 .hero {
-    background-image: url('../images/cow3.jpg');
+    background-image: url('../images/cow3.png');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -773,7 +773,7 @@ nav .nav-links a {
 #community-page {
     background-color: #000000;
     /* Dark background */
-    background-image: url('../images/haunted-background.jpg');
+    background-image: url('../images/haunted-background.png');
     /* Replace with your image path */
     background-size: cover;
     background-position: center;
