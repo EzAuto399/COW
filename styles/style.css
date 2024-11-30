@@ -126,23 +126,27 @@ nav .nav-links a {
 }
 .hero .cursed-text {
     font-family: 'Creepster', cursive;
+    /* Keep your existing font style */
     font-size: 4em;
-    /* Large font size for emphasis */
+    /* Keep your existing size */
     color: #ff0000;
-    /* Bright red for cursed theme */
+    /* Keep your existing color */
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7), 0 0 15px #ff0000;
-    /* Spooky glowing effect */
+    /* Keep existing effects */
     background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black background for contrast */
+    /* Keep existing background */
     padding: 20px 40px;
-    /* Adds spacing inside the text block */
+    /* Keep your existing padding */
     display: inline-block;
     border-radius: 10px;
-    /* Rounded corners for smoother design */
-    margin-top: -250px;
-    /* Raise the text higher (was previously -50px) */
+    margin-top: -200px;
+    /* Move title even higher */
     animation: flicker 1.5s infinite;
-    /* Flickering effect for spooky vibe */
+    /* Keep existing animation */
+    position: relative;
+    /* Use relative positioning to move it */
+    top: -100px;
+    /* Move it even further up */
 }
 .hero h1 {
     font-size: 3em;
