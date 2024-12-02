@@ -267,3 +267,23 @@ function spawnCowsRandomly() {
 window.addEventListener('load', () => {
     spawnCowsRandomly();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Check if the effect has already been shown
+    if (!sessionStorage.getItem("lightEffectShown")) {
+        // Ensure the overlay exists
+        const overlay = document.getElementById("light-overlay");
+
+        // Remove the overlay after the animation
+        overlay.addEventListener("animationend", () => {
+            overlay.remove(); // Remove the overlay after animation ends
+        });
+
+        // Mark the effect as shown in this session
+        sessionStorage.setItem("lightEffectShown", "true");
+    } else {
+        // If already shown, immediately remove the overlay
+        const overlay = document.getElementById("light-overlay");
+        overlay.remove();
+    }
+});
