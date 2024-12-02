@@ -178,43 +178,29 @@ nav .nav-links a {
     justify-content: center;
     align-items: center;
 }
+#social-links .social-wrapper {
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Subtle grey bubble background */
+    border-radius: 20px;
+    /* Rounded corners for the bubble */
+    padding: 20px;
+    /* Padding inside the bubble */
+    display: inline-block;
+    /* Shrink-wrap to the contents */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Optional shadow for effect */
+}
+
 #social-links .social-icons {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    /* Add more space between each social icon */
-    margin: 20px 0;
-    /* Add some vertical spacing */
+    gap: 20px;
+    /* Space between icons */
 }
 
-#social-links .social-icons a {
-    text-decoration: none;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    /* Smooth scaling and background color */
-    background-color: rgba(255, 255, 255, 0.1);
-    /* Subtle grey overlay for each icon */
-    padding: 10px;
-    border-radius: 10px;
-    /* Rounded corners for icons */
-}
-
-#social-links .social-icons a:hover {
-    transform: scale(1.3);
-    /* Slightly enlarge on hover */
-    background-color: rgba(255, 255, 255, 0.2);
-    /* Change background color on hover */
-}
-
-#social-links .social-icon {
-    width: 60px;
-    /* Adjust icon size */
-    height: 60px;
-    object-fit: contain;
-}
 #social-links .social-icons a {
     text-decoration: none;
     transition: transform 0.3s ease;
-    /* Smooth scaling effect */
 }
 
 #social-links .social-icons a:hover {
@@ -224,10 +210,12 @@ nav .nav-links a {
 
 #social-links .social-icon {
     width: 50px;
+    /* Adjust icon size */
     height: 50px;
     border-radius: 50%;
+    /* Circular icons */
     object-fit: cover;
-    /* Ensures images fit properly */
+    /* Ensure proper fit */
 }
 .spooky-text {
     font-size: 1.2em;
