@@ -62,14 +62,17 @@ nav {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
+    justify-content: center;
+    /* Centers the entire nav bar content */
 }
 
 nav .nav-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    /* Spreads logo and links evenly */
     width: 100%;
-    padding: 0 20px;
+    /* Ensures full width for better alignment */
 }
 
 nav .logo {
@@ -78,13 +81,18 @@ nav .logo {
     text-decoration: none;
     font-weight: bold;
     font-family: 'Permanent Marker', cursive;
+    text-align: center;
+    margin-left: 0;
+    /* Centers `$COW` relative to the nav bar */
 }
 
-nav .nav-links {
+.nav-links {
     list-style: none;
     display: flex;
     gap: 20px;
     align-items: center;
+    margin-left: 0;
+    /* Center the nav links */
 }
 
 nav .nav-links li {
@@ -120,7 +128,6 @@ nav .nav-links a {
     width: 25px;
     margin: 4px 0;
 }
-
 /* -------------------- Hero Section -------------------- */
 .hero {
     background-image: url('../images/cow3.png');
