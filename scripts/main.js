@@ -143,61 +143,75 @@ document.querySelectorAll('.nav-links a').forEach((link) => {
 
 /**
  * 5. Haunted Floating Cows
- * Dynamically creates cows at random intervals, with random positions, avoiding overlap.
+ * Dynamically creates cows on the extreme left and right sides,
+ * avoiding overlapping with main content sections.
  */
 function spawnCowsRandomly() {
-    const existingPositions = []; // Track positions to avoid collisions
-    const maxCows = 20; // Maximum number of cows at a time
-    const minCows = 5; // Minimum number of cows to maintain
+    const existingPositions = { left: [], right: [] }; // Track positions separately for left and right
+    const maxCowsPerSide = 5; // Maximum number of cows per side
+    const minCowsPerSide = 2; // Minimum number of cows per side
     const cowSize = 100; // Approximate size for collision detection
 
     /**
-     * Helper: Generate random positions ensuring no overlap
+     * Helper: Generate random positions within specified side
+     * @param {string} side - 'left' or 'right'
      */
-    function getRandomPosition(size) {
-        const maxWidth = window.innerWidth - size;
-        const maxHeight = window.innerHeight - size;
-
+    function getRandomPosition(side) {
         let x, y, collision;
+
+        const sidePercentage = 12; // Percentage of viewport width for each side
+        const sideWidth = (window.innerWidth * sidePercentage) / 100;
+
+        // Define boundaries based on side
+        const xMin = side === 'left' ? 0 : window.innerWidth - sideWidth;
+        const xMax = side === 'left' ? sideWidth : window.innerWidth;
+
+        // Avoid overlapping with the navigation bar (assumed height: 60px)
+        const yMin = 60; // Start below the nav bar
+        const yMax = window.innerHeight - cowSize;
 
         do {
             collision = false;
-            x = Math.random() * maxWidth;
-            y = Math.random() * maxHeight;
+            x = Math.random() * (xMax - xMin - cowSize) + xMin;
+            y = Math.random() * (yMax - yMin) + yMin;
 
-            // Check for collision
-            for (const pos of existingPositions) {
+            // Check for collision within the same side
+            const positions = existingPositions[side];
+            for (const pos of positions) {
                 const distance = Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2));
-                if (distance < size) {
+                if (distance < cowSize) {
                     collision = true;
                     break;
                 }
             }
         } while (collision);
 
-        existingPositions.push({ x, y });
+        existingPositions[side].push({ x, y });
         return { x, y };
     }
 
     /**
-     * Creates a single cow at a random position and manages its animations.
+     * Creates a single cow on a random side at a random position.
      */
-    function createCow() {
-        if (document.querySelectorAll('.haunted-cow').length >= maxCows) return;
+    function createCow(side) {
+        if (existingPositions[side].length >= maxCowsPerSide) return;
 
         const cow = document.createElement('img');
         cow.src = 'images/cow.png'; // Ensure path is correct
         cow.alt = 'Haunted Cow';
         cow.className = 'haunted-cow';
 
-        // Generate random position and size
-        const { x, y } = getRandomPosition(cowSize);
-        cow.style.width = `${Math.random() * 150 + 50}px`; // Random size between 50px and 200px
+        // Get random position on the specified side
+        const { x, y } = getRandomPosition(side);
+
+        // Generate random size between 50px and 100px for consistency
+        const size = Math.random() * 50 + 50; // 50px to 100px
+        cow.style.width = `${size}px`; // Uniform size
         cow.style.position = 'absolute';
         cow.style.top = `${y}px`;
         cow.style.left = `${x}px`;
         cow.style.opacity = '0'; // Initially hidden
-        cow.style.transition = 'opacity 6s ease-in-out, top 4s ease, left 4s ease'; // Slower fade-in/out
+        cow.style.transition = 'opacity 3s ease-in-out, top 4s ease, left 4s ease'; // Adjusted fade-in/out
 
         document.body.appendChild(cow);
 
@@ -210,32 +224,43 @@ function spawnCowsRandomly() {
                 cow.style.opacity = '0';
 
                 setTimeout(() => {
-                    document.body.removeChild(cow);
-                    const index = existingPositions.findIndex((pos) => pos.x === x && pos.y === y);
-                    if (index !== -1) existingPositions.splice(index, 1); // Remove from tracker
-                }, 6000); // Matches fade-out duration
-            }, Math.random() * 7000 + 3000); // Visible for 3–10 seconds
+                    if (cow.parentElement) {
+                        cow.parentElement.removeChild(cow);
+                    }
+                    // Remove position from tracker
+                    const posIndex = existingPositions[side].findIndex(
+                        (pos) => pos.x === x && pos.y === y
+                    );
+                    if (posIndex !== -1) existingPositions[side].splice(posIndex, 1);
+                }, 3000); // Matches fade-out duration
+            }, Math.random() * 5000 + 3000); // Visible for 3–8 seconds
         }, 100); // Fade-in delay
     }
 
-
     /**
-     * Ensure minimum number of cows are always visible.
+     * Ensure minimum number of cows are always visible on both sides.
      */
     function ensureMinimumCows() {
-        const currentCows = document.querySelectorAll('.haunted-cow').length;
-        if (currentCows < minCows) {
-            for (let i = currentCows; i < minCows; i++) {
-                createCow();
+        ['left', 'right'].forEach((side) => {
+            const currentCows = existingPositions[side].length;
+            if (currentCows < minCowsPerSide) {
+                const cowsToAdd = minCowsPerSide - currentCows;
+                for (let i = 0; i < cowsToAdd; i++) {
+                    createCow(side);
+                }
             }
-        }
+        });
     }
 
-    // Spawn cows at random intervals
+    /**
+     * Spawn cows at random intervals within left and right extremes
+     */
     setInterval(() => {
-        createCow();
+        // Randomly choose which side to spawn a cow
+        const side = Math.random() < 0.5 ? 'left' : 'right';
+        createCow(side);
         ensureMinimumCows(); // Check and maintain the minimum number of cows
-    }, Math.random() * 2000 + 1000); // Random interval between 1–3 seconds
+    }, Math.random() * 3000 + 2000); // Random interval between 2–5 seconds
 }
 
 // Initialize cow spawning on page load

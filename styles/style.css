@@ -1,50 +1,64 @@
-/* Import Custom Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Permanent+Marker&display=swap');
+/* -------------------- Import Custom Fonts -------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Permanent+Marker&family=Creepster&display=swap');
 
-/* General Styles */
+/* -------------------- CSS Variables for Consistency -------------------- */
+:root {
+    --primary-color: #ff0000;
+    --secondary-color: #ff0066;
+    --background-body: #000;
+    /* Changed to black to eliminate grey gaps */
+    --text-color: #f5f5f5;
+    --shadow-color: rgba(0, 0, 0, 0.7);
+    --button-border-radius: 50px;
+    --icon-size: 60px;
+    --container-width: 80%;
+    --max-container-width: 1200px;
+    --transition-speed: 0.3s;
+}
+
+/* -------------------- General Styles -------------------- */
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html,
 body {
     height: 100%;
-    margin: 0;
-    padding: 0;
     font-family: 'Roboto', sans-serif;
-    color: #f5f5f5;
-    background-color: #1a1a1d;
+    color: var(--text-color);
+    background-color: var(--background-body);
     overflow-x: hidden;
     scroll-behavior: smooth;
-    display: flex;
-    flex-direction: column;
 }
 
 body {
     min-height: 100vh;
 }
 
-main {
-    flex: 1;
-}
-
 section {
     margin: 0;
-    /* Remove default margins */
     padding: 0;
-    /* Remove default padding */
 }
 
-/* Container */
+/* -------------------- Container -------------------- */
 .container {
-    width: 80%;
-    max-width: 1200px;
+    width: var(--container-width);
+    max-width: var(--max-container-width);
     margin: 0 auto;
+    padding: 0;
 }
 
-/* Navigation Bar */
+/* -------------------- Navigation Bar -------------------- */
 nav {
     background-color: #0d0d0d;
     height: 60px;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1001;
+    /* Increased from 1000 to 1001 */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
@@ -71,8 +85,6 @@ nav .nav-links {
     display: flex;
     gap: 20px;
     align-items: center;
-    margin: 0;
-    padding: 0;
 }
 
 nav .nav-links li {
@@ -91,7 +103,7 @@ nav .nav-links a {
     position: absolute;
     width: 100%;
     height: 2px;
-    background-color: #ff0066;
+    background-color: var(--secondary-color);
     bottom: -5px;
     left: 0;
 }
@@ -109,210 +121,248 @@ nav .nav-links a {
     margin: 4px 0;
 }
 
-/* Hero Section */
+/* -------------------- Hero Section -------------------- */
 .hero {
     background-image: url('../images/cow3.png');
-    background-size: cover;
+    background-size: 120% auto;
+    /* Enlarges the image horizontally */
     background-position: center;
-    height: 100vh;
-    /* Full screen height */
+    background-repeat: no-repeat;
+    height: 75vh;
+    /* Adjusted height for better vertical space */
     color: #fff;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    /* Vertically centers content */
+    justify-content: flex-start;
+    /* Aligns items to the top */
     align-items: center;
+    position: relative;
+    /* For absolute positioning of text */
+    overflow: hidden;
+    /* Prevents overflow */
 }
+
+.hero-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Aligns items to the top */
+    align-items: center;
+    padding-top: 20px;
+    /* Space from the top */
+}
+
 .hero .cursed-text {
     font-family: 'Creepster', cursive;
-    /* Keep your existing font style */
-    font-size: 4em;
-    /* Keep your existing size */
-    color: #ff0000;
-    /* Keep your existing color */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7), 0 0 15px #ff0000;
-    /* Keep existing effects */
+    font-size: 3em;
+    /* Ensures single-line display */
+    color: var(--primary-color);
+    text-shadow: 2px 2px 10px var(--shadow-color), 0 0 15px var(--primary-color);
     background-color: rgba(0, 0, 0, 0.5);
-    /* Keep existing background */
-    padding: 20px 40px;
-    /* Keep your existing padding */
+    padding: 10px 20px;
+    /* Provides more horizontal space */
     display: inline-block;
-    border-radius: 10px;
-    margin-top: -200px;
-    /* Move title even higher */
+    border-radius: 15px;
+    position: absolute;
+    top: 10%;
+    /* Positions near the top */
+    left: 50%;
+    transform: translateX(-50%);
     animation: flicker 1.5s infinite;
-    /* Keep existing animation */
-    position: relative;
-    /* Use relative positioning to move it */
-    top: -100px;
-    /* Move it even further up */
-}
-.hero h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: 'Permanent Marker', cursive;
-    animation: fadeIn 2s ease-in;
-}
-.spooky-header {
-    font-family: 'Creepster', cursive;
-    font-size: 3em;
-    color: #ff0000;
-    /* Blood red */
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff4500, 0 0 30px #ff4500;
-    animation: flicker 2s infinite;
-    /* Flickering animation */
-}
-#social-links {
-    background-color: #000;
-    /* Black background */
-    text-align: center;
-    padding: 20px 0;
-    /* Reduced vertical padding */
+    z-index: 1;
+    /* Ensures it stays above the image */
+    white-space: nowrap;
+    /* Prevents text from wrapping */
     margin: 0;
-    /* Remove margins */
-    color: #f5f5f5;
-    height: 30vh;
-    /* Occupy 30% of the viewport height */
+    /* Ensures no additional margin */
+}
+
+.hero p {
+    font-size: 1.5em;
+    color: #fff;
+    margin-top: 20px;
+    margin-bottom: 0;
+    /* Ensure no extra bottom margin */
+}
+
+/* -------------------- Social Links Section -------------------- */
+#social-links {
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Slight transparency for aesthetics */
+    text-align: center;
+    padding: 15px 0;
+    /* Provides vertical space */
+    margin: 0;
+    /* Removes default margin */
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
+    position: sticky;
+    /* Makes the section sticky */
+    top: 60px;
+    /* Adjusted to the height of the nav bar */
+    z-index: 1000;
+    /* Lower than nav's z-index */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    /* Adds shadow below */
+    margin-bottom: 60px;
+    /* Increased from 40px to 60px */
 }
 #social-links .social-wrapper {
-    background-color: rgba(255, 255, 255, 0.1);
-    /* Subtle grey bubble background */
-    border-radius: 20px;
-    /* Rounded corners for the bubble */
-    padding: 20px;
-    /* Padding inside the bubble */
+    background-color: rgba(255, 255, 255, 0.15);
+    /* Slightly increased opacity */
+    border-radius: 25px;
+    /* More rounded appearance */
+    padding: 30px;
+    /* Larger bubble */
     display: inline-block;
-    /* Shrink-wrap to the contents */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    /* Optional shadow for effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    /* Enhanced shadow */
+    width: 70%;
+    /* Increased from 60% */
+    max-width: 700px;
+    /* Increased from 600px */
+    margin: 0;
+    /* Ensures no additional margin */
+    
 }
 
 #social-links .social-icons {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    /* Space between icons */
+    justify-content: space-evenly;
+    /* Changed from 'center' to 'space-evenly' */
+    gap: 40px;
+    /* Increased from 25px to 40px */
+    margin: 0;
 }
 
 #social-links .social-icons a {
+    flex-grow: 1;
+    /* Allows icons to expand */
+    text-align: center;
+    max-width: 80px;
+    /* Prevents excessive stretching */
     text-decoration: none;
     transition: transform 0.3s ease;
 }
 
 #social-links .social-icons a:hover {
-    transform: scale(1.2);
-    /* Enlarge on hover */
+    transform: scale(1.3);
+    /* More noticeable hover effect */
 }
 
 #social-links .social-icon {
-    width: 50px;
-    /* Adjust icon size */
-    height: 50px;
+    width: var(--icon-size);
+    /* Larger icons */
+    height: var(--icon-size);
+    /* Larger icons */
     border-radius: 50%;
-    /* Circular icons */
     object-fit: cover;
-    /* Ensure proper fit */
+    margin: 0;
+    /* Ensures no extra margin */
 }
-.spooky-text {
+/* -------------------- Connect, Innovate, Succeed Section -------------------- */
+#connect-innovate-succeed {
+    background-color: #000;
+    /* Black background to match social links */
+    margin: 0;
+    /* Removes default margin */
+    padding: 100px 0;
+    margin-top: 120px;
+    /* Increased padding for more space above and below */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+}
+
+#connect-innovate-succeed .content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* Reduced from 40px to decrease horizontal space */
+    max-width: 1200px;
+    width: 100%;
+    margin: 0;
+    /* Ensures no additional margin */
+}
+
+#connect-innovate-succeed img.ghost-image {
+    flex-shrink: 0;
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+    margin: 0;
+    /* Ensures no extra margin */
+}
+
+#connect-innovate-succeed .text-content {
+    flex: 1;
+    text-align: left;
+    margin: 0;
+    /* Ensures no extra margin */
+}
+
+#connect-innovate-succeed .text-content h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    /* Increased from 15px for more space below the heading */
+    font-family: 'Permanent Marker', cursive;
+    margin-top: 0;
+    /* Ensures no extra top margin */
+}
+
+#connect-innovate-succeed .text-content p {
     font-size: 1.2em;
-    color: #ffcccb;
-    /* Pale red */
-    text-shadow: 0 0 5px #ff4500, 0 0 10px #8b0000;
-    animation: flicker-slow 4s infinite;
+    margin: 20px 0;
+    /* Increased from 15px to add more space above and below paragraphs */
+    line-height: 1.6;
+    margin-top: 0;
+    /* Ensures no extra top margin */
 }
 
-.spooky-nav {
-    color: #ff0000;
-    /* Blood red */
-    text-shadow: 0 0 5px #ff0000, 0 0 10px #8b0000;
-    animation: glow 3s infinite;
+#connect-innovate-succeed .cta-button {
+    margin-top: 25px;
+    /* Increased from 15px for more space above the button */
 }
 
-@keyframes glow {
-
-    0%,
-    100% {
-        text-shadow: 0 0 5px #ff0000, 0 0 10px #8b0000;
-    }
-
-    50% {
-        text-shadow: 0 0 10px #ff0000, 0 0 15px #8b0000;
-    }
-}
-.cursed-text {
-    font-family: 'Creepster', cursive;
-    /* Cursed font */
-    font-size: 4em;
-    /* Large font size */
-    color: #ff0000;
-    /* Bright red */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7), 0 0 15px #ff0000;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent background */
-    padding: 20px 40px;
-    display: inline-block;
-    border-radius: 10px;
-    /* Rounded corners */
-    animation: flicker 1.5s infinite;
-    /* Flickering effect */
-}
-/* Subtext Style */
-.cursed-subtext {
-    font-family: 'Creepster', cursive;
-    font-size: 1.8em;
-    /* Slightly smaller than the header */
-    color: #ff0000;
-    /* Matching the cursed theme */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7), 0 0 15px #ff0000;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent background for contrast */
-    padding: 10px 20px;
-    display: inline-block;
-    border-radius: 10px;
-    margin-top: 20px;
-    animation: flicker 1.5s infinite;
-}
-
-/* Button Style */
+/* -------------------- Button Styles -------------------- */
 .cursed-button {
     font-family: 'Creepster', cursive;
     font-size: 1.5em;
     background-color: rgba(0, 0, 0, 0.5);
     /* Semi-transparent black */
-    color: #ff0000;
+    color: var(--primary-color);
     padding: 10px 30px;
     text-decoration: none;
-    border: 2px solid #ff0000;
+    border: 2px solid var(--primary-color);
     /* Red border matching the theme */
     border-radius: 10px;
     display: inline-block;
     text-align: center;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7), 0 0 10px #ff0000;
+    text-shadow: 2px 2px 5px var(--shadow-color), 0 0 10px var(--primary-color);
     animation: flicker 1.5s infinite;
+    /* Flickering effect */
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     margin-top: 20px;
 }
 
 .cursed-button:hover {
-    background-color: #ff0000;
+    background-color: var(--primary-color);
     /* Red background */
     color: #000;
     /* Black text */
     transform: scale(1.1);
     /* Slight zoom effect */
 }
-/* Subtext under the main header */
-.hero p {
-    font-size: 1.5em;
-    color: #fff;
-    margin-top: 20px;
-}
 
-/* Button in the Hero Section */
 .cta-button {
     background-color: transparent;
     color: #fff;
@@ -320,16 +370,89 @@ nav .nav-links a {
     text-decoration: none;
     font-size: 1em;
     border: 2px solid #fff;
-    border-radius: 50px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: var(--button-border-radius);
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
     margin-top: 20px;
 }
 
 .cta-button:hover {
-    background-color: #ff0000;
+    background-color: var(--primary-color);
     color: #fff;
 }
-/* Flickering Animation for the Header */
+
+/* -------------------- About Page -------------------- */
+#about-page {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #000;
+    color: var(--text-color);
+}
+
+#about-page h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-family: 'Permanent Marker', cursive;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 10px var(--shadow-color), 0 0 15px var(--primary-color);
+    background-color: transparent;
+    padding: 0;
+    display: inline;
+    border-radius: 0;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 40px auto 0;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.about-content .about-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    margin: 0;
+    /* Ensures no extra margin */
+}
+
+.about-content h2 {
+    font-size: 2em;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    font-family: 'Permanent Marker', cursive;
+    color: var(--secondary-color);
+    text-shadow: 2px 2px 5px var(--shadow-color), 0 0 10px var(--secondary-color);
+    background-color: transparent;
+    padding: 0;
+}
+
+.about-content p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    background-color: transparent;
+    padding: 0;
+}
+
+.about-content .cursed-button {
+    display: inline-block;
+    margin-top: 40px;
+    background-color: var(--secondary-color);
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1em;
+    border-radius: var(--button-border-radius);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.about-content .cursed-button:hover {
+    background-color: #fff;
+    color: var(--secondary-color);
+}
+
+/* -------------------- Animations -------------------- */
+/* Flickering Animation for Headers and Buttons */
 @keyframes flicker {
 
     0%,
@@ -347,6 +470,7 @@ nav .nav-links a {
     }
 }
 
+/* Optional Slow Flicker Animation */
 @keyframes flicker-slow {
 
     0%,
@@ -356,736 +480,6 @@ nav .nav-links a {
 
     50% {
         opacity: 0.9;
-    }
-}/* Connect, Innovate, Succeed Section */
-#connect-innovate-succeed {
-    background-color: #000;
-    /* Black background */
-    margin: 0;
-    /* Remove margins */
-    padding: 30px 0;
-    /* Reduced vertical padding */
-    height: 50vh;
-    /* Occupy 50% of the viewport height */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    text-align: center;
-}
-
-#connect-innovate-succeed .content-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    max-width: 1200px;
-    width: 100%;
-}
-
-#connect-innovate-succeed img.ghost-image {
-    flex-shrink: 0;
-    width: 400px;
-    height: auto;
-    border-radius: 10px;
-}
-
-#connect-innovate-succeed .text-content {
-    flex: 1;
-    text-align: left;
-}
-
-#connect-innovate-succeed .text-content h2 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: 'Permanent Marker', cursive;
-}
-
-#connect-innovate-succeed .text-content p {
-    font-size: 1.2em;
-    margin: 20px 0;
-    line-height: 1.6;
-}
-
-/* About Page */
-#about-page {
-    padding: 80px 0;
-    text-align: center;
-    background-color: #000;
-    /* Change background color to black */
-    color: #f5f5f5;
-}
-#about-page h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: 'Permanent Marker', cursive;
-    color: #ff0000;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7), 0 0 15px #ff0000;
-    background-color: transparent;
-    /* Ensure no background wrap */
-    padding: 0;
-    /* Remove padding */
-    display: inline;
-    /* Prevent block wrapping */
-    border-radius: 0;
-    /* Remove rounded corners */
-}
-/* About Content */
-.about-content {
-    max-width: 800px;
-    margin: 40px auto 0;
-    text-align: left;
-    line-height: 1.6;
-}
-
-.about-content .about-image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 30px;
-    border-radius: 10px;
-}
-
-.about-content h2 {
-    font-size: 2em;
-    margin-top: 40px;
-    margin-bottom: 10px;
-    font-family: 'Permanent Marker', cursive;
-    color: #ff0066;
-    /* Bright red for scary theme */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7), 0 0 10px #ff0066;
-    background-color: transparent;
-    /* Removed background */
-    padding: 0;
-    /* Removed padding */
-}
-
-.about-content p {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-    background-color: transparent;
-    /* Removed background */
-    padding: 0;
-    /* Removed padding */
-}
-
-.about-content .cta-button {
-    display: inline-block;
-    margin-top: 40px;
-    background-color: #ff0066;
-    color: #fff;
-    padding: 15px 30px;
-    text-decoration: none;
-    font-size: 1em;
-    border-radius: 50px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.about-content .cta-button:hover {
-    background-color: #fff;
-    color: #ff0066;
-}
-/* Tokenomics Page */
-#tokenomics-page {
-    padding: 80px 0;
-    text-align: center;
-    background-color: #1a1a1d;
-    color: #f5f5f5;
-}
-
-#tokenomics-page h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: 'Permanent Marker', cursive;
-}
-
-/* =========================================================
-   Tokenomics Page Specific Styles
-   ========================================================= */
-
-/* Reset margins and paddings to prevent conflicts */
-#tokenomics-page .tokenomics-content,
-#tokenomics-page .tokenomics-content .token-details,
-#tokenomics-page .tokenomics-content #tokenomicsChart,
-#tokenomics-page .tokenomics-content p {
-    margin: 0;
-    padding: 0;
-}
-
-/* Tokenomics Content Container */
-#tokenomics-page .tokenomics-content {
-    max-width: 800px;
-    margin: 40px auto 0;
-    /* Top: 40px, Left & Right: auto (centers the container), Bottom: 0 */
-
-    /* Flexbox setup */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    /* Space between child elements */
-    padding: 20px;
-    /* Adds internal spacing */
-}
-
-/* Token Details */
-#tokenomics-page .tokenomics-content .token-details {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    /* Reduced margin to minimize spacing */
-    text-align: center;
-    /* Center-align text */
-}
-
-#tokenomics-page .tokenomics-content .token-details p {
-    margin: 10px 0;
-}
-
-/* Contract Address Link */
-#tokenomics-page .tokenomics-content .contract-address {
-    color: #ff0066;
-    text-decoration: none;
-}
-
-#tokenomics-page .tokenomics-content .contract-address:hover {
-    text-decoration: underline;
-}
-
-/* Tokenomics Chart Styling */
-#tokenomics-page .tokenomics-content #tokenomicsChart {
-    width: 400px;
-    /* Increased width */
-    height: 400px;
-    /* Increased height */
-    margin: 20px 0;
-    /* Controlled vertical spacing above and below the canvas */
-    display: block;
-    /* Ensures the canvas behaves as a block-level element */
-    background-color: transparent;
-    /* Ensures the background is transparent */
-    border: none;
-    /* Removes any default borders */
-    flex-shrink: 0;
-    /* Prevent shrinking */
-}
-
-/* Tokenomics Page Paragraph */
-#tokenomics-page .tokenomics-content p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    text-align: center;
-    /* Center-align paragraph */
-    margin-top: 20px;
-    /* Controlled spacing above the paragraph */
-}
-
-/* =========================================================
-   End of Tokenomics Page Specific Styles
-   ========================================================= */
-
-/* Roadmap Page */
-#roadmap-page {
-    padding: 80px 0;
-    text-align: center;
-    background-color: #1a1a1d;
-    color: #f5f5f5;
-}
-
-#roadmap-page h1 {
-    font-size: 3em;
-    margin-bottom: 40px;
-    /* Increased margin for better spacing */
-    font-family: 'Permanent Marker', cursive;
-    position: relative;
-    z-index: 1;
-}
-
-/* Timeline Styles */
-.timeline {
-    position: relative;
-    max-width: 1000px;
-    /* Increased max-width for larger screens */
-    margin: 0 auto;
-    padding: 20px 0;
-}
-
-.timeline::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    background-color: #ff0066;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    margin-left: -3px;
-}
-
-.timeline-item {
-    padding: 20px 40px;
-    position: relative;
-    width: 50%;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.6s ease-in-out;
-}
-
-.timeline-item.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.timeline-item:nth-child(odd) {
-    left: 0;
-}
-
-.timeline-item:nth-child(even) {
-    left: 50%;
-}
-
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    background-color: #fff;
-    border: 4px solid #ff0066;
-    top: 20px;
-    border-radius: 50%;
-    z-index: 1;
-}
-
-.timeline-item:nth-child(odd)::after {
-    right: -12.5px;
-}
-
-.timeline-item:nth-child(even)::after {
-    left: -12.5px;
-}
-
-.timeline-icon {
-    position: absolute;
-    top: 15px;
-    right: -60px;
-    z-index: 2;
-    background-color: #ff0066;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-}
-
-.timeline-item:nth-child(even) .timeline-icon {
-    left: -60px;
-    right: auto;
-}
-
-.timeline-icon i {
-    font-size: 1.2em;
-}
-
-.timeline-content {
-    padding: 20px 30px;
-    background-color: #fff;
-    color: #1a1a1d;
-    position: relative;
-    border-radius: 6px;
-}
-
-.timeline-content h3 {
-    font-size: 1.5em;
-    margin-top: 0;
-    font-family: 'Permanent Marker', cursive;
-}
-
-.timeline-content p {
-    font-size: 1.1em;
-    line-height: 1.6;
-}
-
-.more-info {
-    display: inline-block;
-    margin-top: 10px;
-    color: #ff0066;
-    text-decoration: none;
-    font-size: 0.9em;
-    border-bottom: 1px solid transparent;
-    transition: border-bottom 0.3s ease;
-}
-
-.more-info:hover {
-    border-bottom: 1px solid #ff0066;
-}
-
-/* Responsive Design for Roadmap */
-@media (max-width: 768px) {
-    .timeline::after {
-        left: 31px;
-    }
-
-    .timeline-item {
-        width: 100%;
-        left: 0;
-        margin-left: 60px;
-        padding: 20px 20px;
-    }
-
-    .timeline-item::after {
-        left: 15px;
-        right: auto;
-    }
-
-    .timeline-item:nth-child(even) {
-        left: 0;
-    }
-
-    .timeline-item:nth-child(even) .timeline-icon {
-        left: -60px;
-        right: auto;
-    }
-
-    .timeline-icon {
-        left: -60px;
-        right: auto;
-    }
-
-    #roadmap-page h1 {
-        font-size: 2.5em;
-    }
-
-    .timeline-content h3 {
-        font-size: 1.2em;
-    }
-
-    /* Additional responsive adjustments if needed */
-}
-
-/* Community Page */
-#community-page {
-    background-color: #000000;
-    /* Dark background */
-    background-image: url('../images/haunted-background.png');
-    /* Replace with your image path */
-    background-size: cover;
-    background-position: center;
-    color: #f5f5f5;
-    text-align: center;
-    padding: 80px 0;
-}
-#community-page h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: 'Permanent Marker', cursive;
-}
-
-#community-page p {
-    font-size: 1.2em;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto 40px;
-}
-
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    /* Reduced gap from 40px to 20px */
-    margin: 40px 0;
-}
-
-.social-links a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 1em;
-    /* Reduced font-size from 1.2em to 1em */
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    /* Reduced gap between icon and text */
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: #ff0066;
-    text-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500;
-    transform: scale(1.1);
-    /* Slightly enlarge on hover */
-    animation: glow 3s infinite;
-}
-
-.social-icon {
-    width: 30px;
-    height: 30px;
-    /* Ensures the icons are uniformly sized */
-    object-fit: contain;
-    /* Maintains aspect ratio */
-}
-
-.social-text {
-    font-size: 1em;
-    /* Adjust text size as needed */
-}
-
-/* Screen Reader Only Text */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* Ensure images are properly aligned */
-.social-links a img.social-icon {
-    display: block;
-    /* Removes any extra space below images */
-}
-
-/* Community Content */
-.community-content {
-    margin-top: 60px;
-}
-
-.community-content h2 {
-    font-size: 2.5em;
-    margin-bottom: 40px;
-    font-family: 'Permanent Marker', cursive;
-}
-
-/* Swiper Styles */
-/* Swiper Styles */
-.swiper-container {
-    width: 100%;
-    max-width: 1200px;
-    /* Wider container for larger screens */
-    margin: 0 auto;
-    padding: 20px 0;
-    overflow: hidden;
-    /* Prevent overflow issues */
-}
-
-.swiper-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 400px;
-    /* Wider slide size */
-    height: 400px;
-    /* Consistent height */
-    flex-shrink: 0;
-    background-color: transparent;
-}
-
-.swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Ensure full coverage of the image */
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-}
-
-.swiper-slide img:hover {
-    transform: scale(1.05);
-    /* Slight zoom effect */
-}
-
-
-/* Swiper Wrapper Fix */
-.swiper-wrapper {
-    display: flex;
-    flex-wrap: nowrap;
-    /* Prevent wrapping of slides */
-    align-items: center;
-}
-
-/* Swiper Navigation Buttons */
-.swiper-button-next,
-.swiper-button-prev {
-    color: #fff;
-    /* Adjust color for visibility */
-    z-index: 10;
-    /* Ensure buttons are above other elements */
-}
-
-.swiper-pagination-bullet {
-    background-color: #fff;
-}
-
-/* Footer */
-footer {
-    background-color: #0d0d0d;
-    padding: 20px 0;
-    text-align: center;
-    margin: 0;
-    /* Remove footer margin */
-}
-
-footer p {
-    margin: 0;
-    color: #666;
-    font-size: 0.9em;
-}
-
-footer .pagination-dots {
-    margin-bottom: 10px;
-}
-
-footer .pagination-dots .dot {
-    height: 10px;
-    width: 10px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-footer .pagination-dots .dot.active {
-    background-color: #ff0066;
-}
-
-footer p {
-    margin: 0;
-    color: #666;
-    font-size: 0.9em;
-}
-
-/* Highlight active navigation link */
-.nav-links a.active {
-    border-bottom: 2px solid #ff0066;
-    padding-bottom: 5px;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    nav .nav-links {
-        flex-direction: column;
-        align-items: center;
-        background-color: #0d0d0d;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        right: 0;
-        display: none;
-    }
-
-    nav .nav-links.active {
-        display: flex;
-    }
-
-    nav .menu-icon {
-        display: flex;
-    }
-
-    nav .nav-links li {
-        margin: 10px 0;
-    }
-
-    .hero h1 {
-        font-size: 2.5em;
-    }
-
-    .hero p {
-        font-size: 1.2em;
-    }
-
-    #connect-innovate-succeed .content-wrapper {
-        flex-direction: column;
-        /* Stack content vertically */
-        text-align: center;
-    }
-
-    #connect-innovate-succeed img.ghost-image {
-        width: 200px;
-        /* Reduce image size for smaller screens */
-    }
-
-    #connect-innovate-succeed .text-content h2 {
-        font-size: 2em;
-        /* Adjust font size */
-    }    #connect-innovate-succeed .text-content p {
-        font-size: 1em;
-    }
-
-    /* Roadmap Responsive Styles */
-    .timeline::after {
-        left: 31px;
-    }
-
-    .timeline-item {
-        width: 100%;
-        left: 0;
-        margin-left: 60px;
-        padding: 20px 20px;
-    }
-
-    .timeline-item::after {
-        left: 15px;
-        right: auto;
-    }
-
-    .timeline-item:nth-child(even) {
-        left: 0;
-    }
-
-    .timeline-item:nth-child(even) .timeline-icon {
-        left: -60px;
-        right: auto;
-    }
-
-    .timeline-icon {
-        left: -60px;
-        right: auto;
-    }
-
-    #roadmap-page h1 {
-        font-size: 2.5em;
-    }
-
-    .timeline-content h3 {
-        font-size: 1.2em;
-    }
-
-    /* Community Page Responsive */
-    .social-links {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    #community-page h1 {
-        font-size: 2.5em;
-    }
-
-    .community-content h2 {
-        font-size: 2em;
-    }
-
-    /* About Page Responsive */
-    #about-page h1 {
-        font-size: 2.5em;
-    }
-
-    .about-content h2 {
-        font-size: 1.8em;
-    }
-
-    .about-content p {
-        font-size: 1em;
-    }
-
-    /* Tokenomics Page Responsive */
-    #tokenomics-page h1 {
-        font-size: 2.5em;
-    }
-
-    /* Footer */
-    footer p {
-        font-size: 0.8em;
     }
 }
 
@@ -1100,6 +494,7 @@ footer p {
     }
 }
 
+/* Apply Fade-in to Various Elements */
 .hero h1,
 .hero p,
 .cta-button,
@@ -1110,7 +505,7 @@ p {
     animation: fadeIn 1s ease-in-out;
 }
 
-/* Timeline Animation */
+/* Timeline Animation (if applicable) */
 .timeline-item {
     opacity: 0;
     transform: translateY(50px);
@@ -1121,6 +516,8 @@ p {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Haunted Cow Animation (if applicable) */
 .haunted-cow {
     position: absolute;
     width: 50px;
@@ -1137,7 +534,7 @@ p {
     /* Gradual fading and resizing */
 }
 
-/* Keyframes for fading and resizing */
+/* Keyframes for Fading and Resizing */
 @keyframes fade-and-grow {
     0% {
         opacity: 1;
@@ -1158,5 +555,147 @@ p {
         /* Fully invisible */
         transform: scale(0.8);
         /* Slightly smaller */
+    }
+}
+
+/* -------------------- Highlight Active Navigation Link -------------------- */
+.nav-links a.active {
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 5px;
+}
+
+/* -------------------- Responsive Design -------------------- */
+@media (max-width: 768px) {
+
+    /* Navigation: Responsive Menu */
+    nav .nav-links {
+        flex-direction: column;
+        align-items: center;
+        background-color: #0d0d0d;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        display: none;
+        /* Hidden by default */
+    }
+
+    nav .nav-links.active {
+        display: flex;
+        /* Displayed when active */
+    }
+
+    nav .menu-icon {
+        display: flex;
+        /* Show menu icon on smaller screens */
+    }
+
+    nav .nav-links li {
+        margin: 10px 0;
+        /* Spacing between menu items */
+    }
+
+    /* Hero Section: Adjustments for Smaller Screens */
+    .hero {
+        background-size: 140% auto;
+        /* Further increase background size */
+        height: 60vh;
+        /* Reduce height for smaller devices */
+    }
+
+    .hero-container {
+        padding-top: 10px;
+        /* Adjust padding */
+    }
+
+    .hero .cursed-text {
+        font-size: 2.5em;
+        /* Reduce font size for better readability */
+        padding: 8px 15px;
+        /* Adjust padding accordingly */
+    }
+
+    /* If using an <img> tag for the cow, adjust its size */
+    .hero-cow {
+        width: 70%;
+        /* Adjusted for smaller screens */
+        max-width: 400px;
+    }
+
+    /* Social Links Section: Further Responsive Adjustments */
+    #social-links .social-wrapper {
+        width: 90%;
+        /* Adjusts width for smaller screens */
+        max-width: 500px;
+        /* Adjusts max-width accordingly */
+    }
+
+    #social-links .social-icons {
+        gap: 20px;
+        /* Reduces gap for smaller screens */
+        justify-content: space-around;
+        /* Adjusts distribution */
+    }
+
+    #social-links .social-icons a {
+        max-width: 60px;
+        /* Adjusts max-width for smaller icons */
+    }
+
+    #social-links .social-icon {
+        width: 50px;
+        /* Adjust icon size for smaller screens */
+        height: 50px;
+    }
+    /* Connect, Innovate, Succeed Section: Responsive Layout */
+    #connect-innovate-succeed .content-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #connect-innovate-succeed img.ghost-image {
+        width: 200px;
+        /* Smaller image on smaller screens */
+    }
+
+    #connect-innovate-succeed .text-content h2 {
+        font-size: 2em;
+        /* Reduce font size */
+        margin-bottom: 15px;
+        /* Ensure consistency */
+    }
+
+    #connect-innovate-succeed .text-content p {
+        font-size: 1em;
+        /* Reduce font size */
+        margin: 15px 0;
+        /* Ensure consistency */
+    }
+
+    .cta-button {
+        margin-top: 15px;
+        /* Ensure consistency */
+    }
+
+    /* About Page: Responsive Font Sizes */
+    #about-page h1 {
+        font-size: 2.5em;
+        /* Reduce font size */
+    }
+
+    .about-content h2 {
+        font-size: 1.8em;
+        /* Reduce font size */
+    }
+
+    .about-content p {
+        font-size: 1em;
+        /* Reduce font size */
+    }
+
+    /* Footer: Adjust Font Size */
+    footer p {
+        font-size: 0.8em;
+        /* Smaller text on smaller screens */
     }
 }
