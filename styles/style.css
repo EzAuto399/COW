@@ -201,8 +201,8 @@ nav .nav-links a {
     background-color: rgba(0, 0, 0, 0.8);
     /* Slight transparency for aesthetics */
     text-align: center;
-    padding: 15px 0;
-    /* Provides vertical space */
+    padding: 10px 0;
+    /* Reduce vertical padding */
     margin: 0;
     /* Removes default margin */
     color: var(--text-color);
@@ -217,43 +217,41 @@ nav .nav-links a {
     /* Lower than nav's z-index */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     /* Adds shadow below */
-    margin-bottom: 60px;
-    /* Increased from 40px to 60px */
+    margin-bottom: 40px;
+    /* Slightly reduce bottom margin */
 }
+
 #social-links .social-wrapper {
-    background-color: rgba(255, 255, 255, 0.15);
-    /* Slightly increased opacity */
-    border-radius: 25px;
-    /* More rounded appearance */
-    padding: 30px;
-    /* Larger bubble */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Reduced opacity for a thinner effect */
+    border-radius: 20px;
+    /* Keep it slightly rounded */
+    padding: 15px;
+    /* Reduce the overall padding */
     display: inline-block;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    /* Enhanced shadow */
-    width: 70%;
-    /* Increased from 60% */
-    max-width: 700px;
-    /* Increased from 600px */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Subtle shadow */
+    width: 60%;
+    /* Narrower width */
+    max-width: 500px;
+    /* Adjusted max-width */
     margin: 0;
     /* Ensures no additional margin */
-    
 }
 
 #social-links .social-icons {
     display: flex;
     justify-content: space-evenly;
-    /* Changed from 'center' to 'space-evenly' */
-    gap: 40px;
-    /* Increased from 25px to 40px */
+    gap: 20px;
+    /* Reduce the gap between icons */
     margin: 0;
 }
 
 #social-links .social-icons a {
     flex-grow: 1;
-    /* Allows icons to expand */
     text-align: center;
-    max-width: 80px;
-    /* Prevents excessive stretching */
+    max-width: 60px;
+    /* Reduce max-width of each icon container */
     text-decoration: none;
     transition: transform 0.3s ease;
 }
