@@ -413,10 +413,11 @@ nav .nav-links a {
 }
 
 .about-content .about-image {
-    width: 100%;
+    width: 90%;
     height: auto;
     margin-bottom: 30px;
     border-radius: 10px;
+    align-items: center;
     margin: 0;
     /* Ensures no extra margin */
 }
