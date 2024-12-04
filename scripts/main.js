@@ -291,45 +291,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-/**
- * 6. Ghost Cursor Trail
- */
-document.addEventListener('mousemove', function (e) {
-    let ghost = document.createElement('div');
-    ghost.className = 'ghost-trail';
-    ghost.style.left = e.pageX + 'px';
-    ghost.style.top = e.pageY + 'px';
-    document.body.appendChild(ghost);
-    setTimeout(function () {
-        ghost.remove();
-    }, 1000);
-});
-
-/**
- * 7. Play Moo Sound on Scroll or Click
- */
-document.addEventListener('DOMContentLoaded', () => {
-    const scrollSound = document.getElementById('scrollSound');
-    let hasPlayedScrollSound = false;
-
-    const playScrollSound = () => {
-        if (!hasPlayedScrollSound && scrollSound) {
-            const playPromise = scrollSound.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    hasPlayedScrollSound = true;
-                }).catch((error) => {
-                    console.warn('Autoplay prevented:', error);
-                    // Optionally, you can prompt the user for interaction here
-                });
-            }
-        }
-    };
-
-    // Attempt to play sound on user interaction
-    window.addEventListener('scroll', playScrollSound);
-    window.addEventListener('click', playScrollSound);
-});
 
 /**
  * 8. Light Overlay Removal on Page Load
