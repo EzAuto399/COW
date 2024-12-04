@@ -124,6 +124,8 @@ function toggleMenu() {
 
 const menuIcon = document.querySelector('.menu-icon');
 if (menuIcon) {
+    menuIcon.addEventListener('click', toggleMenu);
+
     menuIcon.addEventListener('keypress', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -147,27 +149,21 @@ document.querySelectorAll('.nav-links a').forEach((link) => {
  * avoiding overlapping with main content sections.
  */
 function spawnCowsRandomly() {
-    const existingPositions = { left: [], right: [] }; // Track positions separately for left and right
-    const maxCowsPerSide = 5; // Maximum number of cows per side
-    const minCowsPerSide = 2; // Minimum number of cows per side
-    const cowSize = 100; // Approximate size for collision detection
+    const existingPositions = { left: [], right: [] };
+    const maxCowsPerSide = 5;
+    const minCowsPerSide = 2;
+    const cowSize = 100;
 
-    /**
-     * Helper: Generate random positions within specified side
-     * @param {string} side - 'left' or 'right'
-     */
     function getRandomPosition(side) {
         let x, y, collision;
 
-        const sidePercentage = 12; // Percentage of viewport width for each side
+        const sidePercentage = 12;
         const sideWidth = (window.innerWidth * sidePercentage) / 100;
 
-        // Define boundaries based on side
         const xMin = side === 'left' ? 0 : window.innerWidth - sideWidth;
         const xMax = side === 'left' ? sideWidth : window.innerWidth;
 
-        // Avoid overlapping with the navigation bar (assumed height: 60px)
-        const yMin = 60; // Start below the nav bar
+        const yMin = 60;
         const yMax = window.innerHeight - cowSize;
 
         do {
@@ -175,7 +171,6 @@ function spawnCowsRandomly() {
             x = Math.random() * (xMax - xMin - cowSize) + xMin;
             y = Math.random() * (yMax - yMin) + yMin;
 
-            // Check for collision within the same side
             const positions = existingPositions[side];
             for (const pos of positions) {
                 const distance = Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2));
@@ -190,36 +185,29 @@ function spawnCowsRandomly() {
         return { x, y };
     }
 
-    /**
-     * Creates a single cow on a random side at a random position.
-     */
     function createCow(side) {
         if (existingPositions[side].length >= maxCowsPerSide) return;
 
         const cow = document.createElement('img');
-        cow.src = 'images/cow.png'; // Ensure path is correct
+        cow.src = 'images/cow.png';
         cow.alt = 'Haunted Cow';
         cow.className = 'haunted-cow';
 
-        // Get random position on the specified side
         const { x, y } = getRandomPosition(side);
 
-        // Generate random size between 50px and 100px for consistency
-        const size = Math.random() * 50 + 50; // 50px to 100px
-        cow.style.width = `${size}px`; // Uniform size
+        const size = Math.random() * 50 + 50;
+        cow.style.width = `${size}px`;
         cow.style.position = 'absolute';
         cow.style.top = `${y}px`;
         cow.style.left = `${x}px`;
-        cow.style.opacity = '0'; // Initially hidden
-        cow.style.transition = 'opacity 3s ease-in-out, top 4s ease, left 4s ease'; // Adjusted fade-in/out
+        cow.style.opacity = '0';
+        cow.style.transition = 'opacity 3s ease-in-out, top 4s ease, left 4s ease';
 
         document.body.appendChild(cow);
 
-        // Fade-in effect
         setTimeout(() => {
             cow.style.opacity = '1';
 
-            // Fade-out and remove cow after a delay
             setTimeout(() => {
                 cow.style.opacity = '0';
 
@@ -227,19 +215,15 @@ function spawnCowsRandomly() {
                     if (cow.parentElement) {
                         cow.parentElement.removeChild(cow);
                     }
-                    // Remove position from tracker
                     const posIndex = existingPositions[side].findIndex(
                         (pos) => pos.x === x && pos.y === y
                     );
                     if (posIndex !== -1) existingPositions[side].splice(posIndex, 1);
-                }, 3000); // Matches fade-out duration
-            }, Math.random() * 5000 + 3000); // Visible for 3–8 seconds
-        }, 100); // Fade-in delay
+                }, 3000);
+            }, Math.random() * 5000 + 3000);
+        }, 100);
     }
 
-    /**
-     * Ensure minimum number of cows are always visible on both sides.
-     */
     function ensureMinimumCows() {
         ['left', 'right'].forEach((side) => {
             const currentCows = existingPositions[side].length;
@@ -252,38 +236,114 @@ function spawnCowsRandomly() {
         });
     }
 
-    /**
-     * Spawn cows at random intervals within left and right extremes
-     */
     setInterval(() => {
-        // Randomly choose which side to spawn a cow
         const side = Math.random() < 0.5 ? 'left' : 'right';
         createCow(side);
-        ensureMinimumCows(); // Check and maintain the minimum number of cows
-    }, Math.random() * 3000 + 2000); // Random interval between 2–5 seconds
+        ensureMinimumCows();
+    }, Math.random() * 3000 + 2000);
 }
 
-// Initialize cow spawning on page load
 window.addEventListener('load', () => {
     spawnCowsRandomly();
 });
 
+/**
+ * 6. Ghost Cursor Trail
+ */
+document.addEventListener('mousemove', function (e) {
+    let ghost = document.createElement('div');
+    ghost.className = 'ghost-trail';
+    ghost.style.left = e.pageX + 'px';
+    ghost.style.top = e.pageY + 'px';
+    document.body.appendChild(ghost);
+    setTimeout(function () {
+        ghost.remove();
+    }, 1000);
+});
+
+/**
+ * 7. Play Sound on Scroll
+ */
+let hasPlayedScrollSound = false;
+const scrollSound = document.getElementById('scrollSound');
+
+window.addEventListener('scroll', () => {
+    if (!hasPlayedScrollSound) {
+        scrollSound.play();
+        hasPlayedScrollSound = true;
+    }
+});
+
+/**
+ * 8. Light Overlay Removal on Page Load
+ */
 document.addEventListener("DOMContentLoaded", () => {
-    // Check if the effect has already been shown
-    if (!sessionStorage.getItem("lightEffectShown")) {
-        // Ensure the overlay exists
-        const overlay = document.getElementById("light-overlay");
+    const overlay = document.getElementById("light-overlay");
+    if (overlay) {
+        if (!sessionStorage.getItem("lightEffectShown")) {
+            overlay.addEventListener("animationend", () => {
+                overlay.remove();
+            });
+            sessionStorage.setItem("lightEffectShown", "true");
+        } else {
+            overlay.remove();
+        }
+    }
+});
 
-        // Remove the overlay after the animation
-        overlay.addEventListener("animationend", () => {
-            overlay.remove(); // Remove the overlay after animation ends
-        });
+/**
+ * 6. Ghost Cursor Trail
+ */
+document.addEventListener('mousemove', function (e) {
+    let ghost = document.createElement('div');
+    ghost.className = 'ghost-trail';
+    ghost.style.left = e.pageX + 'px';
+    ghost.style.top = e.pageY + 'px';
+    document.body.appendChild(ghost);
+    setTimeout(function () {
+        ghost.remove();
+    }, 1000);
+});
 
-        // Mark the effect as shown in this session
-        sessionStorage.setItem("lightEffectShown", "true");
-    } else {
-        // If already shown, immediately remove the overlay
-        const overlay = document.getElementById("light-overlay");
-        overlay.remove();
+/**
+ * 7. Play Moo Sound on Scroll or Click
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const scrollSound = document.getElementById('scrollSound');
+    let hasPlayedScrollSound = false;
+
+    const playScrollSound = () => {
+        if (!hasPlayedScrollSound && scrollSound) {
+            const playPromise = scrollSound.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    hasPlayedScrollSound = true;
+                }).catch((error) => {
+                    console.warn('Autoplay prevented:', error);
+                    // Optionally, you can prompt the user for interaction here
+                });
+            }
+        }
+    };
+
+    // Attempt to play sound on user interaction
+    window.addEventListener('scroll', playScrollSound);
+    window.addEventListener('click', playScrollSound);
+});
+
+/**
+ * 8. Light Overlay Removal on Page Load
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    const overlay = document.getElementById("light-overlay");
+    if (overlay) {
+        if (!sessionStorage.getItem("lightEffectShown")) {
+            overlay.addEventListener("animationend", () => {
+                overlay.remove();
+            });
+            sessionStorage.setItem("lightEffectShown", "true");
+        } else {
+            overlay.remove();
+        }
     }
 });

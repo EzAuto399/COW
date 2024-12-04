@@ -6,7 +6,6 @@
     --primary-color: #ff0000;
     --secondary-color: #ff0066;
     --background-body: #000;
-    /* Changed to black to eliminate grey gaps */
     --text-color: #f5f5f5;
     --shadow-color: rgba(0, 0, 0, 0.7);
     --button-border-radius: 50px;
@@ -58,21 +57,17 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1001;
-    /* Increased from 1000 to 1001 */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Centers the entire nav bar content */
 }
 
 nav .nav-container {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    /* Spreads logo and links evenly */
     width: 100%;
-    /* Ensures full width for better alignment */
 }
 
 nav .logo {
@@ -83,7 +78,6 @@ nav .logo {
     font-family: 'Permanent Marker', cursive;
     text-align: center;
     margin-left: 0;
-    /* Centers `$COW` relative to the nav bar */
 }
 
 .nav-links {
@@ -92,7 +86,6 @@ nav .logo {
     gap: 20px;
     align-items: center;
     margin-left: 0;
-    /* Center the nav links */
 }
 
 nav .nav-links li {
@@ -128,26 +121,33 @@ nav .nav-links a {
     width: 25px;
     margin: 4px 0;
 }
-/* -------------------- Hero Section -------------------- */
-.hero {
+
+/* -------------------- Parallax Effect -------------------- */
+.parallax {
+    height: 75vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.parallax .hero {
     background-image: url('../images/cow3.png');
-    background-size: 120% auto;
-    /* Enlarges the image horizontally */
+    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* -------------------- Hero Section -------------------- */
+.hero {
     height: 75vh;
-    /* Adjusted height for better vertical space */
     color: #fff;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* Aligns items to the top */
     align-items: center;
     position: relative;
-    /* For absolute positioning of text */
     overflow: hidden;
-    /* Prevents overflow */
 }
 
 .hero-container {
@@ -157,35 +157,27 @@ nav .nav-links a {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* Aligns items to the top */
     align-items: center;
     padding-top: 20px;
-    /* Space from the top */
 }
 
 .hero .cursed-text {
     font-family: 'Creepster', cursive;
     font-size: 3em;
-    /* Ensures single-line display */
     color: var(--primary-color);
     text-shadow: 2px 2px 10px var(--shadow-color), 0 0 15px var(--primary-color);
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px 20px;
-    /* Provides more horizontal space */
     display: inline-block;
     border-radius: 15px;
     position: absolute;
     top: 10%;
-    /* Positions near the top */
     left: 50%;
     transform: translateX(-50%);
     animation: flicker 1.5s infinite;
     z-index: 1;
-    /* Ensures it stays above the image */
     white-space: nowrap;
-    /* Prevents text from wrapping */
     margin: 0;
-    /* Ensures no additional margin */
 }
 
 .hero p {
@@ -193,57 +185,40 @@ nav .nav-links a {
     color: #fff;
     margin-top: 20px;
     margin-bottom: 0;
-    /* Ensure no extra bottom margin */
 }
 
 /* -------------------- Social Links Section -------------------- */
 #social-links {
     background-color: rgba(0, 0, 0, 0.8);
-    /* Slight transparency for aesthetics */
     text-align: center;
     padding: 10px 0;
-    /* Reduce vertical padding */
     margin: 0;
-    /* Removes default margin */
     color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     position: sticky;
-    /* Makes the section sticky */
     top: 60px;
-    /* Adjusted to the height of the nav bar */
     z-index: 1000;
-    /* Lower than nav's z-index */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    /* Adds shadow below */
     margin-bottom: 40px;
-    /* Slightly reduce bottom margin */
 }
 
 #social-links .social-wrapper {
     background-color: rgba(255, 255, 255, 0.1);
-    /* Reduced opacity for a thinner effect */
     border-radius: 20px;
-    /* Keep it slightly rounded */
     padding: 15px;
-    /* Reduce the overall padding */
     display: inline-block;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    /* Subtle shadow */
     width: 60%;
-    /* Narrower width */
     max-width: 500px;
-    /* Adjusted max-width */
     margin: 0;
-    /* Ensures no additional margin */
 }
 
 #social-links .social-icons {
     display: flex;
     justify-content: space-evenly;
     gap: 20px;
-    /* Reduce the gap between icons */
     margin: 0;
 }
 
@@ -251,35 +226,28 @@ nav .nav-links a {
     flex-grow: 1;
     text-align: center;
     max-width: 60px;
-    /* Reduce max-width of each icon container */
     text-decoration: none;
     transition: transform 0.3s ease;
 }
 
 #social-links .social-icons a:hover {
     transform: scale(1.3);
-    /* More noticeable hover effect */
 }
 
 #social-links .social-icon {
     width: var(--icon-size);
-    /* Larger icons */
     height: var(--icon-size);
-    /* Larger icons */
     border-radius: 50%;
     object-fit: cover;
     margin: 0;
-    /* Ensures no extra margin */
 }
+
 /* -------------------- Connect, Innovate, Succeed Section -------------------- */
 #connect-innovate-succeed {
     background-color: #000;
-    /* Black background to match social links */
     margin: 0;
-    /* Removes default margin */
     padding: 100px 0;
     margin-top: 120px;
-    /* Increased padding for more space above and below */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -292,11 +260,9 @@ nav .nav-links a {
     display: flex;
     align-items: center;
     gap: 20px;
-    /* Reduced from 40px to decrease horizontal space */
     max-width: 1200px;
     width: 100%;
     margin: 0;
-    /* Ensures no additional margin */
 }
 
 #connect-innovate-succeed img.ghost-image {
@@ -305,37 +271,30 @@ nav .nav-links a {
     height: auto;
     border-radius: 10px;
     margin: 0;
-    /* Ensures no extra margin */
 }
 
 #connect-innovate-succeed .text-content {
     flex: 1;
     text-align: left;
     margin: 0;
-    /* Ensures no extra margin */
 }
 
 #connect-innovate-succeed .text-content h2 {
     font-size: 3em;
     margin-bottom: 20px;
-    /* Increased from 15px for more space below the heading */
     font-family: 'Permanent Marker', cursive;
     margin-top: 0;
-    /* Ensures no extra top margin */
 }
 
 #connect-innovate-succeed .text-content p {
     font-size: 1.2em;
     margin: 20px 0;
-    /* Increased from 15px to add more space above and below paragraphs */
     line-height: 1.6;
     margin-top: 0;
-    /* Ensures no extra top margin */
 }
 
 #connect-innovate-succeed .cta-button {
     margin-top: 25px;
-    /* Increased from 15px for more space above the button */
 }
 
 /* -------------------- Button Styles -------------------- */
@@ -343,29 +302,22 @@ nav .nav-links a {
     font-family: 'Creepster', cursive;
     font-size: 1.5em;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black */
     color: var(--primary-color);
     padding: 10px 30px;
     text-decoration: none;
     border: 2px solid var(--primary-color);
-    /* Red border matching the theme */
     border-radius: 10px;
     display: inline-block;
     text-align: center;
     text-shadow: 2px 2px 5px var(--shadow-color), 0 0 10px var(--primary-color);
     animation: flicker 1.5s infinite;
-    /* Flickering effect */
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease-in-out;
     margin-top: 20px;
 }
 
 .cursed-button:hover {
-    background-color: var(--primary-color);
-    /* Red background */
-    color: #000;
-    /* Black text */
-    transform: scale(1.1);
-    /* Slight zoom effect */
+    filter: brightness(80%) sepia(100%) hue-rotate(200deg);
+    transform: scale(1.05);
 }
 
 .cta-button {
@@ -381,8 +333,17 @@ nav .nav-links a {
 }
 
 .cta-button:hover {
-    background-color: var(--primary-color);
-    color: #fff;
+    filter: brightness(80%) sepia(100%) hue-rotate(200deg);
+    transform: scale(1.05);
+}
+
+/* -------------------- Haunted Hover Effects -------------------- */
+.scary-img:hover,
+.cursed-button:hover,
+.cta-button:hover {
+    filter: brightness(80%) sepia(100%) hue-rotate(200deg);
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
 }
 
 /* -------------------- About Page -------------------- */
@@ -419,7 +380,6 @@ nav .nav-links a {
     border-radius: 10px;
     align-items: center;
     margin: 0;
-    /* Ensures no extra margin */
 }
 
 .about-content h2 {
@@ -511,7 +471,7 @@ p {
     animation: fadeIn 1s ease-in-out;
 }
 
-/* Timeline Animation (if applicable) */
+/* Timeline Animation */
 .timeline-item {
     opacity: 0;
     transform: translateY(50px);
@@ -523,44 +483,50 @@ p {
     transform: translateY(0);
 }
 
-/* Haunted Cow Animation (if applicable) */
+/* Haunted Cow Animation */
 .haunted-cow {
     position: absolute;
     width: 50px;
-    /* Default size, dynamically updated */
     height: auto;
     z-index: 100;
     pointer-events: none;
-    /* Prevent interaction */
     opacity: 1;
-    /* Fully visible by default */
     transition: opacity 5s ease-in-out;
-    /* Smooth fade over 5 seconds */
     animation: fade-and-grow 5s ease-in-out infinite;
-    /* Gradual fading and resizing */
 }
 
-/* Keyframes for Fading and Resizing */
 @keyframes fade-and-grow {
     0% {
         opacity: 1;
-        /* Fully visible */
         transform: scale(1);
-        /* Original size */
     }
 
     50% {
         opacity: 0.5;
-        /* Semi-transparent */
         transform: scale(1.2);
-        /* Slightly larger */
     }
 
     100% {
         opacity: 0;
-        /* Fully invisible */
         transform: scale(0.8);
-        /* Slightly smaller */
+    }
+}
+
+/* -------------------- Ghost Cursor Trail -------------------- */
+.ghost-trail {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('images/ghost.png') no-repeat center center;
+    background-size: contain;
+    pointer-events: none;
+    animation: fadeOut 1s forwards;
+    z-index: 2000;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
     }
 }
 
@@ -583,77 +549,56 @@ p {
         left: 0;
         right: 0;
         display: none;
-        /* Hidden by default */
     }
 
     nav .nav-links.active {
         display: flex;
-        /* Displayed when active */
     }
 
     nav .menu-icon {
         display: flex;
-        /* Show menu icon on smaller screens */
     }
 
     nav .nav-links li {
         margin: 10px 0;
-        /* Spacing between menu items */
     }
 
-    /* Hero Section: Adjustments for Smaller Screens */
+    /* Hero Section */
     .hero {
         background-size: 140% auto;
-        /* Further increase background size */
         height: 60vh;
-        /* Reduce height for smaller devices */
     }
 
     .hero-container {
         padding-top: 10px;
-        /* Adjust padding */
     }
 
     .hero .cursed-text {
         font-size: 2.5em;
-        /* Reduce font size for better readability */
         padding: 8px 15px;
-        /* Adjust padding accordingly */
     }
 
-    /* If using an <img> tag for the cow, adjust its size */
-    .hero-cow {
-        width: 70%;
-        /* Adjusted for smaller screens */
-        max-width: 400px;
-    }
-
-    /* Social Links Section: Further Responsive Adjustments */
+    /* Social Links Section */
     #social-links .social-wrapper {
         width: 90%;
-        /* Adjusts width for smaller screens */
         max-width: 500px;
-        /* Adjusts max-width accordingly */
     }
 
     #social-links .social-icons {
         gap: 20px;
-        /* Reduces gap for smaller screens */
         justify-content: space-around;
-        /* Adjusts distribution */
     }
 
     #social-links .social-icons a {
         max-width: 60px;
-        /* Adjusts max-width for smaller icons */
     }
 
     #social-links .social-icon {
         width: 50px;
-        /* Adjust icon size for smaller screens */
         height: 50px;
     }
-    /* Connect, Innovate, Succeed Section: Responsive Layout */
+
+    /* Connect, Innovate, Succeed Section */
     #connect-innovate-succeed .content-wrapper {
         flex-direction: column;
         text-align: center;
@@ -661,51 +606,42 @@ p {
 
     #connect-innovate-succeed img.ghost-image {
         width: 200px;
-        /* Smaller image on smaller screens */
     }
 
     #connect-innovate-succeed .text-content h2 {
         font-size: 2em;
-        /* Reduce font size */
         margin-bottom: 15px;
-        /* Ensure consistency */
     }
 
     #connect-innovate-succeed .text-content p {
         font-size: 1em;
-        /* Reduce font size */
         margin: 15px 0;
-        /* Ensure consistency */
     }
 
     .cta-button {
         margin-top: 15px;
-        /* Ensure consistency */
     }
 
-    /* About Page: Responsive Font Sizes */
+    /* About Page */
     #about-page h1 {
         font-size: 2.5em;
-        /* Reduce font size */
     }
 
     .about-content h2 {
         font-size: 1.8em;
-        /* Reduce font size */
     }
 
     .about-content p {
         font-size: 1em;
-        /* Reduce font size */
     }
 
-    /* Footer: Adjust Font Size */
+    /* Footer */
     footer p {
         font-size: 0.8em;
-        /* Smaller text on smaller screens */
     }
 }
-/* flicker */
+
+/* -------------------- Flickering Light Overlay -------------------- */
 #light-overlay {
     position: fixed;
     top: 0;
@@ -714,10 +650,8 @@ p {
     height: 100%;
     background: black;
     z-index: 2000;
-    /* Make sure it appears above all content */
     opacity: 1;
     pointer-events: none;
-    /* Prevent interaction with the overlay */
     animation: flickerLights 3s ease-in-out forwards;
 }
 
@@ -728,40 +662,32 @@ p {
         opacity: 1;
     }
 
-    /* Fully dark */
     10% {
         opacity: 0.7;
     }
 
-    /* Partially visible */
     20% {
         opacity: 0.4;
     }
 
-    /* Dim light */
     30% {
         opacity: 0.9;
     }
 
-    /* Back to dark */
     50% {
         opacity: 0.6;
     }
 
-    /* Flicker brighter */
     70% {
         opacity: 0.2;
     }
 
-    /* Almost fully visible */
     90% {
         opacity: 0.8;
     }
 
-    /* Flicker back to dark */
     100% {
         opacity: 0;
     }
-
-    /* Fully visible site */
 }
+
